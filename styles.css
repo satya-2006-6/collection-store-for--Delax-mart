@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+header {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+header p {
+  margin: 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #cbd5e1;
+}
+
+main {
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+input,
+textarea,
+button {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin-top: 0.35rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+.inline-group {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.secondary {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.search-row {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr auto auto;
+  align-items: stretch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.9rem 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.empty-state {
+  color: #64748b;
+  padding: 1rem 0;
+}
+
+@media (max-width: 720px) {
+  .search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-group {
+    grid-template-columns: 1fr;
+  }
+}

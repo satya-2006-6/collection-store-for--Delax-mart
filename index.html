@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delax Mart Link Storage</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Delax Mart Product Link Storage</h1>
+    <p>Save product links with unique IDs and find them quickly later.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Add a new product link</h2>
+      <form id="product-form">
+        <label>
+          Product name
+          <input id="product-name" type="text" placeholder="Product name" required />
+        </label>
+        <label>
+          Product URL
+          <input id="product-url" type="url" placeholder="https://..." required />
+        </label>
+        <label>
+          Store / source
+          <select id="product-store" required>
+            <option value="">Choose a store</option>
+            <option value="Amazon">Amazon</option>
+            <option value="Flipkart">Flipkart</option>
+            <option value="eBay">eBay</option>
+            <option value="Myntra">Myntra</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>
+          Notes / description
+          <textarea id="product-notes" placeholder="Optional details"></textarea>
+        </label>
+        <div class="inline-group">
+          <label>
+            Unique ID
+            <input id="product-id" type="text" readonly />
+          </label>
+          <button type="button" id="generate-id">Generate ID</button>
+        </div>
+        <button class="primary" type="submit">Save product</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Search saved products</h2>
+      <div class="search-row">
+        <input id="search-id" type="text" placeholder="Search by ID, name, or store" />
+        <button id="search-button" class="secondary">Search</button>
+        <button id="clear-search" class="secondary">Show all</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Saved products</h2>
+      <div id="list-empty" class="empty-state">No product links saved yet.</div>
+      <table id="product-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Store</th>
+            <th>Link</th>
+            <th>Notes</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
