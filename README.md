@@ -5,10 +5,10 @@ A simple local website for storing product links with unique IDs and quick searc
 ## How to use
 
 1. Open `index.html` in your browser.
-2. Enter the product name, URL, select the store, and add optional notes.
-3. Click `Generate ID` if you want a new unique ID.
+2. Enter the product name, URL, product image URL, price, select the store, and add optional notes.
+3. Click `Generate ID` if you want a new unique ID with 4 digits and letters, like `1234-DL`.
 4. Click `Save product` to store it.
-5. Use the search box to find a stored product by ID, name, or store.
+5. Use the search box to find a stored product by ID, name, store, or price.
 
 ## Features
 

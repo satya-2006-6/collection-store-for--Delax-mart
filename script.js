@@ -1,6 +1,8 @@
 const productForm = document.getElementById('product-form');
 const productName = document.getElementById('product-name');
 const productUrl = document.getElementById('product-url');
+const productImage = document.getElementById('product-image');
+const productPrice = document.getElementById('product-price');
 const productStore = document.getElementById('product-store');
 const productNotes = document.getElementById('product-notes');
 const productId = document.getElementById('product-id');
@@ -15,9 +17,11 @@ const STORAGE_KEY = 'delaxMartProductLinks';
 let products = [];
 
 function makeUniqueId() {
-  const timestamp = Date.now().toString(36);
-  const randomPart = Math.random().toString(36).slice(2, 8);
-  return `DLX-${timestamp}-${randomPart}`.toUpperCase();
+  const digits = Math.floor(1000 + Math.random() * 9000);
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const suffixLength = 2 + Math.floor(Math.random() * 2);
+  const suffix = Array.from({ length: suffixLength }, () => letters[Math.floor(Math.random() * letters.length)]).join('');
+  return `${digits}-${suffix}`;
 }
 
 function saveProducts() {
@@ -53,6 +57,21 @@ function renderProducts(list) {
     storeCell.textContent = item.store || '-';
     row.appendChild(storeCell);
 
+    const priceCell = document.createElement('td');
+    priceCell.textContent = item.price || '-';
+    row.appendChild(priceCell);
+
+    const imageCell = document.createElement('td');
+    if (item.image) {
+      const image = document.createElement('img');
+      image.src = item.image;
+      image.alt = item.name;
+      imageCell.appendChild(image);
+    } else {
+      imageCell.textContent = '-';
+    }
+    row.appendChild(imageCell);
+
     const urlCell = document.createElement('td');
     const link = document.createElement('a');
     link.href = item.url;
@@ -87,6 +106,8 @@ function addProduct(event) {
 
   const name = productName.value.trim();
   const url = productUrl.value.trim();
+  const image = productImage.value.trim();
+  const price = productPrice.value.trim();
   const store = productStore.value.trim();
   const notes = productNotes.value.trim();
   const id = productId.value.trim() || makeUniqueId();
@@ -102,7 +123,7 @@ function addProduct(event) {
     return;
   }
 
-  products.unshift({ id, name, store, url, notes });
+  products.unshift({ id, name, store, price, image, url, notes });
   saveProducts();
   refreshList();
 
@@ -132,7 +153,8 @@ function searchById() {
     return (
       item.id.toLowerCase().includes(query) ||
       item.name.toLowerCase().includes(query) ||
-      (item.store && item.store.toLowerCase().includes(query))
+      (item.store && item.store.toLowerCase().includes(query)) ||
+      (item.price && item.price.toLowerCase().includes(query))
     );
   });
   renderProducts(filtered);

@@ -25,6 +25,14 @@
           <input id="product-url" type="url" placeholder="https://..." required />
         </label>
         <label>
+          Product image URL
+          <input id="product-image" type="url" placeholder="https://example.com/image.jpg" />
+        </label>
+        <label>
+          Price
+          <input id="product-price" type="text" placeholder="₹ 0.00" />
+        </label>
+        <label>
           Store / source
           <select id="product-store" required>
             <option value="">Choose a store</option>
@@ -53,7 +61,7 @@
     <section class="card">
       <h2>Search saved products</h2>
       <div class="search-row">
-        <input id="search-id" type="text" placeholder="Search by ID, name, or store" />
+        <input id="search-id" type="text" placeholder="Search by ID, name, store, or price" />
         <button id="search-button" class="secondary">Search</button>
         <button id="clear-search" class="secondary">Show all</button>
       </div>
@@ -68,6 +76,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Store</th>
+            <th>Price</th>
+            <th>Image</th>
             <th>Link</th>
             <th>Notes</th>
             <th>Action</th>
