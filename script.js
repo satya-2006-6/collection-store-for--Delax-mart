@@ -7,11 +7,17 @@ const productStore = document.getElementById('product-store');
 const productNotes = document.getElementById('product-notes');
 const productId = document.getElementById('product-id');
 const generateIdButton = document.getElementById('generate-id');
+const saveButton = document.getElementById('save-button');
+const cancelEditButton = document.getElementById('cancel-edit');
 const productTableBody = document.querySelector('#product-table tbody');
 const listEmpty = document.getElementById('list-empty');
 const searchIdInput = document.getElementById('search-id');
 const searchButton = document.getElementById('search-button');
 const clearSearchButton = document.getElementById('clear-search');
+
+const STORAGE_KEY = 'delaxMartProductLinks';
+let products = [];
+let editModeId = null;
 
 const STORAGE_KEY = 'delaxMartProductLinks';
 let products = [];
@@ -86,6 +92,12 @@ function renderProducts(list) {
     row.appendChild(notesCell);
 
     const actionCell = document.createElement('td');
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.className = 'primary';
+    editButton.addEventListener('click', () => startEdit(item.id));
+    actionCell.appendChild(editButton);
+
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'secondary';
@@ -118,17 +130,24 @@ function addProduct(event) {
   }
 
   const existing = products.find((item) => item.id === id);
-  if (existing) {
+  if (existing && existing.id !== editModeId) {
     alert('This ID already exists. Generate a new unique ID.');
     return;
   }
 
-  products.unshift({ id, name, store, price, image, url, notes });
+  if (editModeId) {
+    products = products.map((item) => {
+      if (item.id !== editModeId) return item;
+      return { id, name, store, price, image, url, notes };
+    });
+    editModeId = null;
+  } else {
+    products.unshift({ id, name, store, price, image, url, notes });
+  }
+
   saveProducts();
   refreshList();
-
-  productForm.reset();
-  productId.value = '';
+  resetForm();
 }
 
 function deleteProduct(id) {
@@ -140,6 +159,35 @@ function deleteProduct(id) {
   products = products.filter((item) => item.id !== id);
   saveProducts();
   refreshList();
+  if (editModeId === id) {
+    editModeId = null;
+    resetForm();
+  }
+}
+
+function startEdit(id) {
+  const product = products.find((item) => item.id === id);
+  if (!product) return;
+
+  editModeId = id;
+  productName.value = product.name;
+  productUrl.value = product.url;
+  productImage.value = product.image || '';
+  productPrice.value = product.price || '';
+  productStore.value = product.store || '';
+  productNotes.value = product.notes || '';
+  productId.value = product.id;
+  productId.readOnly = true;
+  saveButton.textContent = 'Update product';
+  cancelEditButton.style.display = 'inline-flex';
+}
+
+function resetForm() {
+  productForm.reset();
+  productId.value = makeUniqueId();
+  productId.readOnly = true;
+  saveButton.textContent = 'Save product';
+  cancelEditButton.style.display = 'none';
 }
 
 function searchById() {
@@ -187,13 +235,16 @@ function init() {
   });
 
   productUrl.addEventListener('blur', autoDetectStoreFromUrl);
-  productUrl.addEventListener('blur', autoDetectStoreFromUrl);
 
   productForm.addEventListener('submit', addProduct);
   searchButton.addEventListener('click', searchById);
   clearSearchButton.addEventListener('click', () => {
     searchIdInput.value = '';
     refreshList();
+  });
+  cancelEditButton.addEventListener('click', () => {
+    editModeId = null;
+    resetForm();
   });
 }
 

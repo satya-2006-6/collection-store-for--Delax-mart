@@ -93,6 +93,17 @@ button:hover {
   transform: translateY(-1px);
 }
 
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.warning {
+  background: #f97316;
+  color: #ffffff;
+}
+
 .primary {
   background: #2563eb;
   color: #ffffff;

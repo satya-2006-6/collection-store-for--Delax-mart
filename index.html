@@ -54,14 +54,17 @@
           </label>
           <button type="button" id="generate-id">Generate ID</button>
         </div>
-        <button class="primary" type="submit">Save product</button>
+        <div class="button-row">
+          <button class="primary" type="submit" id="save-button">Save product</button>
+          <button class="secondary warning" type="button" id="cancel-edit" style="display:none;">Cancel edit</button>
+        </div>
       </form>
     </section>
 
     <section class="card">
       <h2>Search saved products</h2>
       <div class="search-row">
-        <input id="search-id" type="text" placeholder="Search by ID, name, store, or price" />
+        <input id="search-id" type="text" placeholder="Search by ID, name, or store" />
         <button id="search-button" class="secondary">Search</button>
         <button id="clear-search" class="secondary">Show all</button>
       </div>
