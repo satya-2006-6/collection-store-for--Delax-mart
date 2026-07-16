@@ -1,8 +1,6 @@
 const productForm = document.getElementById('product-form');
 const productName = document.getElementById('product-name');
 const productUrl = document.getElementById('product-url');
-const productImage = document.getElementById('product-image');
-const productPrice = document.getElementById('product-price');
 const productStore = document.getElementById('product-store');
 const productNotes = document.getElementById('product-notes');
 const productId = document.getElementById('product-id');
@@ -18,9 +16,6 @@ const clearSearchButton = document.getElementById('clear-search');
 const STORAGE_KEY = 'delaxMartProductLinks';
 let products = [];
 let editModeId = null;
-
-const STORAGE_KEY = 'delaxMartProductLinks';
-let products = [];
 
 function makeUniqueId() {
   const digits = Math.floor(1000 + Math.random() * 9000);
@@ -63,21 +58,6 @@ function renderProducts(list) {
     storeCell.textContent = item.store || '-';
     row.appendChild(storeCell);
 
-    const priceCell = document.createElement('td');
-    priceCell.textContent = item.price || '-';
-    row.appendChild(priceCell);
-
-    const imageCell = document.createElement('td');
-    if (item.image) {
-      const image = document.createElement('img');
-      image.src = item.image;
-      image.alt = item.name;
-      imageCell.appendChild(image);
-    } else {
-      imageCell.textContent = '-';
-    }
-    row.appendChild(imageCell);
-
     const urlCell = document.createElement('td');
     const link = document.createElement('a');
     link.href = item.url;
@@ -118,8 +98,6 @@ function addProduct(event) {
 
   const name = productName.value.trim();
   const url = productUrl.value.trim();
-  const image = productImage.value.trim();
-  const price = productPrice.value.trim();
   const store = productStore.value.trim();
   const notes = productNotes.value.trim();
   const id = productId.value.trim() || makeUniqueId();
@@ -138,11 +116,11 @@ function addProduct(event) {
   if (editModeId) {
     products = products.map((item) => {
       if (item.id !== editModeId) return item;
-      return { id, name, store, price, image, url, notes };
+      return { id, name, store, url, notes };
     });
     editModeId = null;
   } else {
-    products.unshift({ id, name, store, price, image, url, notes });
+    products.unshift({ id, name, store, url, notes });
   }
 
   saveProducts();
@@ -172,8 +150,6 @@ function startEdit(id) {
   editModeId = id;
   productName.value = product.name;
   productUrl.value = product.url;
-  productImage.value = product.image || '';
-  productPrice.value = product.price || '';
   productStore.value = product.store || '';
   productNotes.value = product.notes || '';
   productId.value = product.id;
@@ -201,8 +177,7 @@ function searchById() {
     return (
       item.id.toLowerCase().includes(query) ||
       item.name.toLowerCase().includes(query) ||
-      (item.store && item.store.toLowerCase().includes(query)) ||
-      (item.price && item.price.toLowerCase().includes(query))
+      (item.store && item.store.toLowerCase().includes(query))
     );
   });
   renderProducts(filtered);

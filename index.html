@@ -25,14 +25,6 @@
           <input id="product-url" type="url" placeholder="https://..." required />
         </label>
         <label>
-          Product image URL
-          <input id="product-image" type="url" placeholder="https://example.com/image.jpg" />
-        </label>
-        <label>
-          Price
-          <input id="product-price" type="text" placeholder="₹ 0.00" />
-        </label>
-        <label>
           Store / source
           <select id="product-store" required>
             <option value="">Choose a store</option>
@@ -55,8 +47,8 @@
           <button type="button" id="generate-id">Generate ID</button>
         </div>
         <div class="button-row">
-          <button class="primary" type="submit" id="save-button">Save product</button>
-          <button class="secondary warning" type="button" id="cancel-edit" style="display:none;">Cancel edit</button>
+          <button id="save-button" class="primary" type="submit">Save product</button>
+          <button id="cancel-edit" class="secondary" type="button" style="display:none;">Cancel</button>
         </div>
       </form>
     </section>
@@ -79,8 +71,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Store</th>
-            <th>Price</th>
-            <th>Image</th>
             <th>Link</th>
             <th>Notes</th>
             <th>Action</th>
@@ -94,3 +84,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+git
